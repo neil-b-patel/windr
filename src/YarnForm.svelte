@@ -116,19 +116,22 @@
 
 <style>
     .yarnForm {
-        font-size: 1.25em;
-        margin: 4vh 6vw;
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        font-size: 1.25em;
+        margin: 4vh 6vw;
+        padding: 2rem 5rem;
+        border: 0.1rem solid lightgrey;
     }
     .fields {
         display: grid;
         grid-template-columns: max-content max-content;
-        gap: 0 5vw;
+        gap: 2vh 5vw;
     }
     .imgField {
         margin: 0 auto;
+        margin-bottom: 1rem;
     }
     .upload {
         width: 25%;
@@ -154,7 +157,9 @@
         margin-bottom: 5vh;
     }
     label {
-        font-size: 0.75em;
+        font-size: 1em;
+        font-weight: bold;
+        font-variant: small-caps;
         text-align: center;
         margin-bottom: 1vh;
     }
@@ -163,7 +168,6 @@
     }
     input[type=text] {
         height: 1.25em;
-        /* width: 75%; */
     }
     input[type=number] {
         height: 1.25em;
@@ -180,7 +184,14 @@
         border: 0.5px solid black;
     }
     button[type=submit] {
+        background-color: inherit;
+        border-width: 0.1rem;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem;
         font-variant: small-caps;
         font-weight: 500;
+    }
+    button[type=submit]:hover {
+        background-color: whitesmoke;
     }
 </style>

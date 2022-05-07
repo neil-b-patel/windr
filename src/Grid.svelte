@@ -2,33 +2,18 @@
     import { cards } from './store.js';
 	import Card from './Card.svelte';
 
-    let newCard = {};
-
-    
-    // export const createCard = (data) => {
-    //     Object.entries(data).forEach(([key, val]) => {
-    //         console.log(key, val);
-    //     })
-    //     $cards.push(data);
-    //     console.log($cards);
-    // }
 </script>
 
 <div class="grid">
-        {#each $cards as card}
-            <Card {...card}/>
-        {/each}
-        <!-- <Card/>
-        <Card/>
-        <Card/>            
+    {#if $cards.length}
+    <div class="inventory">
+        Inventory
+    </div>
+    {/if}
 
-        <Card/>
-        <Card/>
-        <Card/>    
-
-        <Card/>
-        <Card/>
-        <Card/> -->
+    {#each $cards as card}
+        <Card {...card}/>
+    {/each}
 </div>
 
 <style>
@@ -38,6 +23,13 @@
         margin: 6vh 0.5vw;
         flex-wrap: wrap;
         row-gap: 10vh;
-        column-gap: 8vw;
+        column-gap: 6vw;
+    }
+
+    .inventory {
+        width: 100%;
+        font-size: 2em;
+        font-variant: small-caps;
+        font-weight: bold;
     }
 </style>
