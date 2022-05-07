@@ -29,7 +29,7 @@
 			</li>
 		</ol>
 	</div>
-	<YarnForm clas="form"/>
+	<YarnForm/>
 	<Grid/>
 	<div class="formNav" on:click={scrollToForm}>&#8593;</div>
 </main>
@@ -37,8 +37,8 @@
 <style>
 	.formNav {
 		position: fixed;
-		bottom: 1rem;
-		right: 1rem;
+		bottom: 0;
+		right: 0.5rem;
 		/* content: "\2191"; */
 		font-size: 3em;
 		color: black;

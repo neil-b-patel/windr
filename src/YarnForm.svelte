@@ -1,29 +1,29 @@
 <script>
     import { cards } from './store.js';
-    let imgSrc, imgInput;
+    let image, imgInput;
 
-    const onImageSelect = (event) => {
-        let img = event.target.files[0];
+    const onImageSelect = (e) => { 
+        let file = e.target.files[0];
         let reader = new FileReader();
-        reader.readAsDataURL(img);
+        reader.readAsDataURL(file);
         reader.onload = (e) => {
-            imgSrc = e.target.result;
-            console.log(imgSrc);
+            image = e.target.result;
         };
     }
-
     const onSubmit = (e) => {
         const formData = new FormData(e.target);
-
         const data = {};
         for (let field of formData) {
+            console.log(field);
             const [key, val] = field;
             data[key] = val;
         }
-        if (!data["image"]) {
+        if (!data["image"].size) {
             data["image"] = null;
         }
-        console.log(data["image"]);
+        else {
+            data["image"] = image;
+        }
         if (!data["inUse"]) {
             data["inUse"] = 0;
         }
@@ -34,9 +34,11 @@
 <form class="yarnForm" on:submit|preventDefault={onSubmit}>
     <div class="imgField">
         <label for="image" class="imageField">Image</label>
-        {#if imgSrc}
-            <img {imgSrc} class="preview" alt="yarn" />
-        {/if}
+            {#if image}
+                <div class="preview">
+                    <img src={image} alt="yarn" />
+                </div>
+            {/if}
         <div class="imgUpload">
             <img 
                 src="https://static.thenounproject.com/png/625182-200.png" 
@@ -48,7 +50,7 @@
                 id="image"
                 name="image"
                 accept="image/*"
-                on:change={(e) => onImageSelect(e)}
+                on:change={onImageSelect}
                 bind:this={imgInput} />
         </div>
     </div>
@@ -97,6 +99,19 @@
                 value=""
             />
         </div>
+
+        <div>
+            <label for="yardage">Yardage</label>
+            <input 
+                type="number"
+                id="yardage"
+                name="yardage"
+                value=0
+                min=0
+                max=9999
+                required
+            />
+        </div>
     
         <div>
             <label for="inUse">In Use?</label>
@@ -121,35 +136,43 @@
         align-items: flex-end;
         font-size: 1.25em;
         margin: 4vh 6vw;
-        padding: 2rem 5rem;
-        border: 0.1rem solid lightgrey;
+        padding: 2rem 4rem;
+        border: 0.1rem dotted lightgrey;
     }
     .fields {
         display: grid;
         grid-template-columns: max-content max-content;
-        gap: 2vh 5vw;
+        gap: 2vh 10vw;
     }
     .imgField {
         margin: 0 auto;
         margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     .upload {
         width: 25%;
         height: 25%;
-        margin-bottom: 6vh;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
     }
     .upload:hover {
         cursor: pointer;
     }
     .imgUpload {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        width: 20vw;
     }
     .preview {
-        height: 5vh;
-        width: 5vw;
-        margin: 6vh 0;
+        width: 150px;
+        height: 150px;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit:cover;
     }
     input {
         padding: 3vh 1vw;
@@ -177,8 +200,10 @@
         font-size: 2em;
     }
     input[type=checkbox] {
-        height: 3vh;
-        width: 3vw;
+        position: relative;
+        top: 0.15rem;
+        height: 35%;
+        width: 35%;
     }
     input:focus {
         border: 0.5px solid black;

@@ -5,6 +5,7 @@
     export let count;
     export let material;
     export let color;
+    export let yardage;
     export let inUse;
 
     const deleteCard = (e) => {
@@ -32,9 +33,11 @@
 <div>
     <div class="delete" on:click={deleteCard}/>
     <div class="card">
-        <div class="image">
-            <img src={image} alt="image of {name}">
-        </div>
+        {#if image}
+            <div class="image">
+                <img src={image} alt="image of {name}">
+            </div>
+        {/if}
         <div class="detail">
             <span class="label">Name: </span> 
             <span class="data"> {name} </span>
@@ -52,6 +55,10 @@
             <span class="data">
                 <div class="color" style="background-color:{color}" />
             </span>
+        </div>
+        <div class="detail">
+            <span class="label">Yardage: </span> 
+            <span class="data"> {yardage} </span>
         </div>
         <div class="detail">
             <span class="label">In Use: </span> 
@@ -143,6 +150,8 @@
         cursor: pointer;
     }
     .image {
+        height: 150px;
+        width: 150px;
         margin-bottom: 1rem;
         padding-top: 1rem;
         padding-bottom: 0.5rem;
@@ -164,5 +173,10 @@
         vertical-align: middle;
         height: 3vh;
         width: 4vw;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 </style>
